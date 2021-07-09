@@ -1,5 +1,7 @@
-module.exports = function(app){
-    app.get('/home',function(req, res){
-        res.render('home/home')
+module.exports.index = (application, req, res)=>{
+    const connection =  application.config.dbConnection;
+    const noticiasDao = new application.app.models.NoticiasDAO(connection);
+    noticiasDao.get5UltimasNoticias((error, result)=> {
+      res.render("home/index", { noticias: result })
     });
 }
